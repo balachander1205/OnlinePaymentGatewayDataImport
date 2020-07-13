@@ -8,6 +8,14 @@
 <title>DHFL Online Payment</title>
 </head>
 <style>
+#report_status {
+    color: green;
+    width: 100%;
+    font-size: 16px;
+    margin: 5%;
+    text-align: center;
+    font-weight: 900;
+}
 label#lbl_disclaimer {
 	color: red;
 	font-size: 14px;
@@ -251,17 +259,25 @@ body {
 	<!--  Loan Details Row -->
 	<div class="row">
 		<div class="col-md-12">
-			<div class="col-md-4">
-			</div>
+			<div class="col-md-4"></div>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-md-12">
-			<div class="col-md-4">
-				<c:if test="${message !=null}">
-					<label style="color:green">${message}</label>
-				</c:if>
-			</div>
+			<c:if test="${message !=null}">
+				<form class="form-group details_frm">
+					<div class="row">
+						<div class="">
+							<div class="form-group">
+								<label id="report_status" style="color: green">${message}</label>
+								<button onclick="window.location='/data/fileupload';" type="button" id="btn_upload_new" class="btn btn-primary mb-2">
+									<span class="" aria-hidden="true">UPLOAD ANOTHER FILE</span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</c:if>
 		</div>
 	</div>
 	<footer>

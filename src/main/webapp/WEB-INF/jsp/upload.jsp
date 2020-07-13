@@ -8,12 +8,9 @@
 <title>DHFL Online Payment</title>
 </head>
 <style>
-label#lbl_disclaimer {
-	color: red;
-	font-size: 14px;
-	font-weight: 100;
+img#img_sample_data {
+    width: 100%;
 }
-
 table.trans_tbl>tbody>tr>td {
 	width: 50%;
 	padding-left: 5%;
@@ -248,18 +245,17 @@ body {
 		</div>
 	</nav>
 
-	<!--  Loan Details Row -->
 	<div class="row">
 		<div class="col-md-12">
 			<div class="col-md-4">
-				<form method="post" action="/data/upload" enctype="multipart/form-data"
-					class="form-group details_frm">
+				<form method="post" action="/data/upload"
+					enctype="multipart/form-data" class="form-group details_frm">
 					<div class="row">
 						<div class="">
 							<div class="form-group">
-								<label for="contain">Data File</label> <input type="file"
-									name="file" /><br /> <br /> <input type="submit"
-									value="Submit" />
+								<label for="contain">Upload Data File</label> <input type="file"
+									name="file" class="btn btn-primary mb-2"/><br /> <br /> <input type="submit"
+									value="Submit" class="btn btn-primary mb-2"/>
 							</div>
 							<!-- file upload status message.. -->
 							<c:if test="${message}!=null">
@@ -270,6 +266,18 @@ body {
 				</form>
 			</div>
 
+		</div>
+		<div class="col-md-12">
+			<form class="form-group details_frm">
+				<div class="row">
+					<div class="">
+						<div class="form-group">
+							<label for="contain">Data File Format***</label> <img
+								id="img_sample_data" src="/images/sample-data.png">
+						</div>
+					</div>
+				</div>
+			</form>
 		</div>
 	</div>
 	<footer>

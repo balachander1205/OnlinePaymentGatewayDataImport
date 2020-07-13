@@ -25,4 +25,12 @@ public class DHFLCustomersInterImpl implements DHFLCustomersInter{
 	public DHFLCustomersEntity searchByMobileNo(String mobileNo) {
 		return dhflCustomersRepo.searchByMobileNo(mobileNo);
 	}
+
+	@Override
+	public int updateCustomer(String appNo, Long MinimumOverdueAmount, Long TotalOverdueEMI, Long TotalChargesAmount,
+			Long MinimumChargeAmount) {
+		int count = dhflCustomersRepo.updateCustomer(appNo, MinimumOverdueAmount, TotalOverdueEMI, TotalChargesAmount,
+				MinimumChargeAmount);
+		return count;
+	}
 }
