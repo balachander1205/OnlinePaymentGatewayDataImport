@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -27,6 +28,7 @@ import com.dhfl.OnlinePaymentGatewayDataDump.util.ExcelHelper;
 import com.dhfl.OnlinePaymentGatewayDataDump.util.ReadExcelFile;
 
 @Controller
+@RequestMapping("/data")
 public class DataDumpController {
 	Logger logger = LoggerFactory.getLogger(DataDumpController.class);
 
@@ -36,7 +38,7 @@ public class DataDumpController {
 	// Save the uploaded file to this folder
 	private static String UPLOADED_FOLDER = "F://Freelance/DHFL/upload/";
 
-	@GetMapping("/")
+	@GetMapping("/fileupload")
 	public String index() {
 		return "upload";
 	}
@@ -65,7 +67,7 @@ public class DataDumpController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/uploadStatus";
+		return "redirect:/data/uploadStatus";
 	}
 
 	@GetMapping("/uploadStatus")
