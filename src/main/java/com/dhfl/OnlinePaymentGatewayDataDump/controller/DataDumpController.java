@@ -61,7 +61,7 @@ public class DataDumpController {
 			Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
 			Files.write(path, bytes);
 			redirectAttributes.addFlashAttribute("message",
-					"You successfully uploaded '" + file.getOriginalFilename() + "'");
+					"Successfully uploaded '" + file.getOriginalFilename() + "'");
 			// Get the file and save it somewhere
 			System.out.println("File Name==>>"+UPLOADED_FOLDER + file.getOriginalFilename());
 			File initialFile = new File(UPLOADED_FOLDER + file.getOriginalFilename());
@@ -87,11 +87,17 @@ public class DataDumpController {
 				}
 			}catch(Exception e) {
 				logger.debug("Exception@inserting customer data="+e);
+				redirectAttributes.addFlashAttribute("message",
+						"File upload is not successful '" + file.getOriginalFilename() + "'");
+				return "redirect:/data/uploadStatus";
 			}
 			//respository.saveAll(customers);
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			redirectAttributes.addFlashAttribute("message",
+					"File upload is not successful '" + file.getOriginalFilename() + "'");
+			return "redirect:/data/uploadStatus";
 		}
 		return "redirect:/data/uploadStatus";
 	}
