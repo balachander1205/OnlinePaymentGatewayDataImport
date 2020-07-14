@@ -12,7 +12,7 @@ import com.dhfl.OnlinePaymentGatewayDataDump.entity.TransactionDetailsEntity;
 @Repository
 public interface TransactionDetailsRepo extends JpaRepository<TransactionDetailsEntity, Long>{
 	//@Query(value = "select loanData from TransactionDetailsEntity loanData", nativeQuery = true)
-	//@Query(value = "select * from dhfllive.tbl_transaction_details", nativeQuery = true)
-	@Query(value = "select * from tbl_transaction_details", nativeQuery = true)
+	@Query(value = "select * from dhfllive.tbl_transaction_details", nativeQuery = true)
+	//@Query(value = "select * from tbl_transaction_details", nativeQuery = true)
 	List<TransactionDetailsEntity> getAllTransactions();
 }
