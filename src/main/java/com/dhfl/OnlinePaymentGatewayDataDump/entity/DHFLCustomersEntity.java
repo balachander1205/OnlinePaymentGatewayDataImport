@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 //@Table(name = "tbl_dhfl_customers")
-@Table(name = "tbl_dhfl_customers", schema="DHFLLIVE")
+@Table(name = "tbl_dhfl_customers", schema="dhfllive")
 public class DHFLCustomersEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

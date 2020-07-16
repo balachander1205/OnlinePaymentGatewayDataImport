@@ -71,8 +71,10 @@ public class DataDumpController {
 			List<DHFLCustomersEntity> customers = ReadExcelFile.excelToTutorials(targetStream);
 			try {
 				if(customers.size()>0) {
+					System.out.println("Customers Size===="+customers.size());
 					for(DHFLCustomersEntity entity : customers) {
 						String applNo = entity.getApplno();
+						System.out.println("ApplNumber----->>>>>"+applNo);
 						DHFLCustomersEntity row = respository.searchByAppNo(applNo);
 						// insert row if data not exists
 						if(row==null) {

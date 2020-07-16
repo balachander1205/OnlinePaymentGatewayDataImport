@@ -1,5 +1,8 @@
 package com.dhfl.OnlinePaymentGatewayDataDump.repo;
 
+import javax.transaction.Transactional;
+
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -18,6 +21,8 @@ public interface DHFLCustomersRepo extends CrudRepository<DHFLCustomersEntity, L
 	@Query("select loandata from DHFLCustomersEntity loandata where loandata.mobileno = :mobileNo")
 	DHFLCustomersEntity searchByMobileNo(@Param("mobileNo") String mobileNo);
 	
+	@Transactional
+	@Modifying
 	@Query("update DHFLCustomersEntity loandata set TotalOverdueEMI=:TotalOverdueEMI,"
 			+ "MinimumOverdueAmount=:MinimumOverdueAmount, TotalChargesAmount=:TotalChargesAmount,"
 			+ "MinimumChargeAmount=:MinimumChargeAmount where loandata.applno = :appNo")
