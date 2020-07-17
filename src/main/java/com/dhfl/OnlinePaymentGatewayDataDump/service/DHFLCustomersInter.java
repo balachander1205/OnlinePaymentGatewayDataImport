@@ -10,5 +10,5 @@ public interface DHFLCustomersInter {
 	public DHFLCustomersEntity searchByMobileNo(String mobileNo);
 	public int updateCustomer(String appNo, Long MinimumOverdueAmount,
 			Long TotalOverdueEMI, Long TotalChargesAmount,
-			Long MinimumChargeAmount);
+			Long MinimumChargeAmount, String mobileno, String customerName);
 }

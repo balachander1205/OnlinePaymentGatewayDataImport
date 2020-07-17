@@ -49,11 +49,14 @@ public class DataDumpController {
 	}
 
 	@PostMapping("/upload") // //new annotation since 4.3
-	public String singleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+	public String singleFileUpload(@RequestParam("file") MultipartFile file, 
+			RedirectAttributes redirectAttributes, HttpSession httpSession) {
 		if (file.isEmpty()) {
 			redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
 			return "redirect:uploadStatus";
 		}
+		int insertedRows = 0;
+		int updatedRows = 0;
 		try {
 			// Save the uploaded file to this folder
 			String UPLOADED_FOLDER = applicationConfig.getDataFileUploadLocation();
@@ -69,9 +72,11 @@ public class DataDumpController {
 			System.out.println("Input Stream="+targetStream);
 			//List<DHFLCustomersEntity> customers = ExcelHelper.excelToTutorials(targetStream);
 			List<DHFLCustomersEntity> customers = ReadExcelFile.excelToTutorials(targetStream);
+			int totalRows = customers!=null || customers.size()>0?customers.size():0;
+			redirectAttributes.addFlashAttribute("totalRows", totalRows);
 			try {
 				if(customers.size()>0) {
-					System.out.println("Customers Size===="+customers.size());
+					System.out.println("Customers Size===="+customers.size());					
 					for(DHFLCustomersEntity entity : customers) {
 						String applNo = entity.getApplno();
 						System.out.println("ApplNumber----->>>>>"+applNo);
@@ -79,18 +84,28 @@ public class DataDumpController {
 						// insert row if data not exists
 						if(row==null) {
 							respository.save(entity);
+							insertedRows++;
 						}else {
 							// Update row
 							System.out.println("Row already exists..Updating record..");
 							dhflCustomersInter.updateCustomer(applNo, entity.getMinimumOverdueAmount(), entity.getTotalOverdueEMI(), 
-									entity.getTotalChargesAmount(), entity.getMinimumChargeAmount());
+									entity.getTotalChargesAmount(), entity.getMinimumChargeAmount(), entity.getMobileno(),
+									entity.getCustomername());
+							updatedRows++;
 						}
 					}
+					redirectAttributes.addFlashAttribute("uploadStatus", "true");
+					redirectAttributes.addFlashAttribute("updatedRows", updatedRows);
+					redirectAttributes.addFlashAttribute("insertedRows", insertedRows);
+					System.out.println("Total Rows="+totalRows+" | insertedRows="+insertedRows+" | updatedRows="+updatedRows);
 				}
 			}catch(Exception e) {
 				logger.debug("Exception@inserting customer data="+e);
 				redirectAttributes.addFlashAttribute("message",
 						"File upload is not successful '" + file.getOriginalFilename() + "'");
+				redirectAttributes.addFlashAttribute("uploadStatus", "true");
+				redirectAttributes.addFlashAttribute("updatedRows", updatedRows);
+				redirectAttributes.addFlashAttribute("insertedRows", insertedRows);
 				return "redirect:/data/uploadStatus";
 			}
 			//respository.saveAll(customers);
@@ -99,6 +114,9 @@ public class DataDumpController {
 			e.printStackTrace();
 			redirectAttributes.addFlashAttribute("message",
 					"File upload is not successful '" + file.getOriginalFilename() + "'");
+			redirectAttributes.addFlashAttribute("uploadStatus", "true");
+			redirectAttributes.addFlashAttribute("updatedRows", updatedRows);
+			redirectAttributes.addFlashAttribute("insertedRows", insertedRows);
 			return "redirect:/data/uploadStatus";
 		}
 		return "redirect:/data/uploadStatus";

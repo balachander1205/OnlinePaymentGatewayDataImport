@@ -8,11 +8,19 @@
 <title>DHFL Online Payment</title>
 </head>
 <style>
+table#tbl_data_status {
+    margin-left: 25%;
+    width: 50%;
+    text-align: center;
+    border: 1px solid #8080805e;
+}
 #report_status {
     color: green;
     width: 100%;
     font-size: 16px;
-    margin: 5%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    text-transform: uppercase;
     text-align: center;
     font-weight: 900;
 }
@@ -270,6 +278,35 @@ body {
 						<div class="">
 							<div class="form-group">
 								<label id="report_status" style="color: green">${message}</label>
+								<c:if test="${uploadStatus!=null }">
+									<table class="table" id="tbl_data_status">
+										<thead>
+											<tr>
+												<th scope="col">Total Records</th>
+												<th scope="col">Updated Records</th>
+												<th scope="col">Insetred Rows</th>
+												<!-- <th scope="col">Mobile</th> -->
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>${totalRows} <input type="hidden" name="totalRows"
+													value="${totalRows}" />
+												</td>
+												<td>${updatedRows} <input type="hidden" name="updatedRows"
+													value="${updatedRows}" />
+												</td>
+												<td>${insertedRows} <input type="hidden" name="insertedRows"
+													value="${insertedRows}" />
+												</td>
+												<%-- <td>
+									${mobileno}
+									<input type="hidden" name="mobile_no" value="${mobileno}"/>
+								</td> --%>
+											</tr>
+										</tbody>
+									</table>
+								</c:if>
 								<button onclick="window.location='/data/fileupload';" type="button" id="btn_upload_new" class="btn btn-primary mb-2">
 									<span class="" aria-hidden="true">UPLOAD ANOTHER FILE</span>
 								</button>

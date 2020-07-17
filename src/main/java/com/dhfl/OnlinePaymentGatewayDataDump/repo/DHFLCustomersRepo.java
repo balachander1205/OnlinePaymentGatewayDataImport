@@ -25,8 +25,10 @@ public interface DHFLCustomersRepo extends CrudRepository<DHFLCustomersEntity, L
 	@Modifying
 	@Query("update DHFLCustomersEntity loandata set TotalOverdueEMI=:TotalOverdueEMI,"
 			+ "MinimumOverdueAmount=:MinimumOverdueAmount, TotalChargesAmount=:TotalChargesAmount,"
-			+ "MinimumChargeAmount=:MinimumChargeAmount where loandata.applno = :appNo")
+			+ "MinimumChargeAmount=:MinimumChargeAmount, customername=:customername,"
+			+ "mobileno=:mobileno where loandata.applno = :appNo")
 	int updateCustomer(@Param("appNo") String appNo, @Param("MinimumOverdueAmount") Long MinimumOverdueAmount,
 			@Param("TotalOverdueEMI") Long TotalOverdueEMI, @Param("TotalChargesAmount") Long TotalChargesAmount,
-			@Param("MinimumChargeAmount") Long MinimumChargeAmount);
+			@Param("MinimumChargeAmount") Long MinimumChargeAmount, @Param("mobileno") String mobileno,
+			@Param("customername") String customername);
 }
