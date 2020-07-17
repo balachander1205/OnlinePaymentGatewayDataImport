@@ -21,6 +21,9 @@ public interface DHFLCustomersRepo extends CrudRepository<DHFLCustomersEntity, L
 	@Query("select loandata from DHFLCustomersEntity loandata where loandata.mobileno = :mobileNo")
 	DHFLCustomersEntity searchByMobileNo(@Param("mobileNo") String mobileNo);
 	
+	@Query("select loandata from DHFLCustomersEntity loandata where loandata.applno = :applno and loandata.brloancode = :brloancode")
+	DHFLCustomersEntity searchByAppNoLoanCode(@Param("applno") String applno, @Param("brloancode") String brloancode);
+	
 	@Transactional
 	@Modifying
 	@Query("update DHFLCustomersEntity loandata set TotalOverdueEMI=:TotalOverdueEMI,"

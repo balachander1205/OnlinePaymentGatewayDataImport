@@ -28,6 +28,7 @@ import com.dhfl.OnlinePaymentGatewayDataDump.repo.DHFLCustomersRepo;
 import com.dhfl.OnlinePaymentGatewayDataDump.service.DHFLCustomersInter;
 import com.dhfl.OnlinePaymentGatewayDataDump.util.ExcelHelper;
 import com.dhfl.OnlinePaymentGatewayDataDump.util.ReadExcelFile;
+import com.ibm.db2.jcc.am.br;
 
 @Controller
 @RequestMapping("/data")
@@ -79,8 +80,11 @@ public class DataDumpController {
 					System.out.println("Customers Size===="+customers.size());					
 					for(DHFLCustomersEntity entity : customers) {
 						String applNo = entity.getApplno();
+						String brLoanCode = entity.getBrloancode();
 						System.out.println("ApplNumber----->>>>>"+applNo);
-						DHFLCustomersEntity row = respository.searchByAppNo(applNo);
+						//DHFLCustomersEntity row = respository.searchByAppNo(applNo);
+						//DHFLCustomersEntity row1 = respository.searchByBrLoanCode(brLoanCode);
+						DHFLCustomersEntity row = respository.searchByAppNoLoanCode(applNo, brLoanCode);
 						// insert row if data not exists
 						if(row==null) {
 							respository.save(entity);

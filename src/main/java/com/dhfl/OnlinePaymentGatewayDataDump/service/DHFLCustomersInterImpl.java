@@ -1,6 +1,7 @@
 package com.dhfl.OnlinePaymentGatewayDataDump.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import com.dhfl.OnlinePaymentGatewayDataDump.entity.DHFLCustomersEntity;
@@ -32,5 +33,10 @@ public class DHFLCustomersInterImpl implements DHFLCustomersInter{
 		int count = dhflCustomersRepo.updateCustomer(appNo, MinimumOverdueAmount, TotalOverdueEMI, TotalChargesAmount,
 				MinimumChargeAmount, mobileno, customerName);
 		return count;
+	}
+	
+	public DHFLCustomersEntity searchByAppNoLoanCode(String applno, String brloancode){
+		DHFLCustomersEntity customersEntity = dhflCustomersRepo.searchByAppNoLoanCode(applno, brloancode);
+		return customersEntity;
 	}
 }
