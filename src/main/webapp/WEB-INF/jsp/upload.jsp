@@ -5,7 +5,7 @@
 <link href="/css/font-awesome.css" rel="stylesheet">
 <script src="/js/jquery-1.11.1.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
-<title>DHFL Online Payment</title>
+<title>DHFL Customer Data Upload</title>
 </head>
 <style>
 img#img_sample_data {
@@ -253,8 +253,8 @@ body {
 					<div class="row">
 						<div class="">
 							<div class="form-group">
-								<label for="contain">Upload Data File</label> <input type="file"
-									name="file" class="btn btn-primary mb-2"/><br /> <br /> <input type="submit"
+								<label for="contain">Upload Data File (.xlsx)</label> <input required type="file"
+									name="file" class="btn btn-primary mb-2" accept=".xlsx, .xls" /><br /> <br /> <input type="submit"
 									value="Submit" class="btn btn-primary mb-2"/>
 							</div>
 							<!-- file upload status message.. -->
