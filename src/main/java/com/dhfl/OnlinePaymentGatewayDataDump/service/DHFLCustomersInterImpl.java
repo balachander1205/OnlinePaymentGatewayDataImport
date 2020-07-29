@@ -29,9 +29,9 @@ public class DHFLCustomersInterImpl implements DHFLCustomersInter{
 
 	@Override
 	public int updateCustomer(String appNo, Long MinimumOverdueAmount, Long TotalOverdueEMI, Long TotalChargesAmount,
-			Long MinimumChargeAmount, String mobileno, String customerName) {
+			Long MinimumChargeAmount, String mobileno, String customerName, Long overdueBlankField, Long chanrgesBlankField) {
 		int count = dhflCustomersRepo.updateCustomer(appNo, MinimumOverdueAmount, TotalOverdueEMI, TotalChargesAmount,
-				MinimumChargeAmount, mobileno, customerName);
+				MinimumChargeAmount, mobileno, customerName, overdueBlankField, chanrgesBlankField);
 		return count;
 	}
 	

@@ -99,7 +99,7 @@ public class DataDumpController {
 								System.out.println("Row already exists..Updating record..");
 								dhflCustomersInter.updateCustomer(applNo, entity.getMinimumOverdueAmount(), entity.getTotalOverdueEMI(), 
 										entity.getTotalChargesAmount(), entity.getMinimumChargeAmount(), entity.getMobileno(),
-										entity.getCustomername());
+										entity.getCustomername(), entity.getOverdueBlankField(), entity.getChargeBlankField());
 								updatedRows++;
 							}
 						}

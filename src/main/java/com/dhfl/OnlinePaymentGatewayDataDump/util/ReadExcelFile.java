@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -24,7 +25,8 @@ public class ReadExcelFile {
 			"Minimum Overdue Amount", "Overdue Blank Field", "Charges", "Total Charges Amount", "Minimum Charge Amount",
 			"Charge Blank Field" };
 	static String SHEET = "Tutorials";
-
+	private static DecimalFormat df2 = new DecimalFormat("#.##");
+	
 	public static void main(String[] args) throws Exception {
 		FileInputStream fis = new FileInputStream(
 				new File("F:\\Freelance\\DHFL\\docs\\Click_To_Pay_Fields_15_06_2020-edited.xlsx"));
@@ -74,7 +76,14 @@ public class ReadExcelFile {
 					continue;
 				}
 				if (HEADERS_FLAG && !isRowEmpty(row)) {
-					Iterator<Cell> cellsInRow = currentRow.iterator();
+					List<Cell> cells = new ArrayList<Cell>();
+					int lastColumn = Math.max(row.getLastCellNum(), 5);
+					for (int cn = 0; cn < lastColumn; cn++) {
+						Cell c = row.getCell(cn, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL);
+						cells.add(c);
+					}
+					Iterator<Cell> cellsInRow = cells.iterator();
+							//currentRow.iterator();
 					DHFLCustomersEntity tutorial = new DHFLCustomersEntity();
 					int cellIdx = 0;
 					while (cellsInRow.hasNext()) {
@@ -104,29 +113,41 @@ public class ReadExcelFile {
 							tutorial.setMobileno(String.valueOf(mobileNo.longValue()));
 							break;
 						case 4:
-							tutorial.setTotalOverdueEMI((long) Double.parseDouble(getCellValueByType(currentCell)));
 							break;
 						case 5:
+							tutorial.setTotalOverdueEMI((long) Double.parseDouble(getCellValueByType(currentCell)));
+							break;
+						case 6:
 							tutorial.setMinimumOverdueAmount(
 									(long) Double.parseDouble(getCellValueByType(currentCell)));
 							break;
-						case 6:
-							tutorial.setTotalChargesAmount((long) Double.parseDouble(getCellValueByType(currentCell)));
-							break;
 						case 7:
-							tutorial.setMinimumChargeAmount((long) Double.parseDouble(getCellValueByType(currentCell)));
+							String overdueBlankField = getCellValueByType(currentCell) != null
+							|| getCellValueByType(currentCell) != "" ? getCellValueByType(currentCell) : "0";
+							tutorial.setOverdueBlankField((long) Double.parseDouble(overdueBlankField));
+							//tutorial.setTotalChargesAmount((long) Double.parseDouble(getCellValueByType(currentCell)));
 							break;
 						case 8:
-							tutorial.setChargeBlankField(Long.valueOf("0"));
+							//tutorial.setTotalChargesAmount((long) Double.parseDouble(getCellValueByType(currentCell)));
+							//tutorial.setMinimumChargeAmount((long) Double.parseDouble(getCellValueByType(currentCell)));
 							break;
 						case 9:
 							tutorial.setTotalChargesAmount((long) Double.parseDouble(getCellValueByType(currentCell)));
+							//tutorial.setMinimumChargeAmount((long) Double.parseDouble(getCellValueByType(currentCell)));
+							//tutorial.setOverdueBlankField(Long.valueOf("0"));
 							break;
 						case 10:
 							tutorial.setMinimumChargeAmount((long) Double.parseDouble(getCellValueByType(currentCell)));
+							/*String chargeBlankField = getCellValueByType(currentCell) != null
+									|| getCellValueByType(currentCell) != "" ? getCellValueByType(currentCell) : "0";
+							tutorial.setChargeBlankField((long) Double.parseDouble(chargeBlankField));*/
+							//tutorial.setTotalChargesAmount((long) Double.parseDouble(getCellValueByType(currentCell)));
 							break;
 						case 11:
-							tutorial.setChargeBlankField(Long.valueOf("0"));
+							String chargeBlankField = getCellValueByType(currentCell) != null
+							|| getCellValueByType(currentCell) != "" ? getCellValueByType(currentCell) : "0";
+							tutorial.setChargeBlankField((long) Double.parseDouble(chargeBlankField));
+							//tutorial.setMinimumChargeAmount((long) Double.parseDouble(getCellValueByType(currentCell)));
 							break;
 						default:
 							break;
@@ -147,15 +168,20 @@ public class ReadExcelFile {
 
 	public static String getCellValueByType(Cell cell) {
 		String value = "0";
-		if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-			value = String.valueOf(cell.getNumericCellValue()) != null
-					|| String.valueOf(cell.getNumericCellValue()) != "" ? String.valueOf(cell.getNumericCellValue())
-							: "0";
-		}
-		if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
-			value = String.valueOf(cell.getStringCellValue()) != null || String.valueOf(cell.getStringCellValue()) != ""
-					? String.valueOf(cell.getStringCellValue())
-					: "0";
+		if(cell!=null) {
+			if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+				value = String.valueOf(cell.getNumericCellValue()) != null
+						|| String.valueOf(cell.getNumericCellValue()) != "" ? String.valueOf(cell.getNumericCellValue())
+								: "0";
+			}else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
+				value = String.valueOf(cell.getStringCellValue()) != null || String.valueOf(cell.getStringCellValue()) != ""
+						? String.valueOf(cell.getStringCellValue())
+						: "0";
+			}else {
+				value = "0";
+			}
+		}else {
+			value = "0";
 		}
 		System.out.println("Value----->>>" + value);
 		return value;
@@ -198,5 +224,9 @@ public class ReadExcelFile {
 			}
 		}
 		return (st > len) ? "" : ((st > 0) || (len < strLength)) ? value.substring(st, len) : value;
+	}
+	
+	public static String format2fDouble(String value) {
+		return String.format("%.2f", value);
 	}
 }
