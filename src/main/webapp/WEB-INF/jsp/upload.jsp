@@ -252,6 +252,7 @@ body {
 					enctype="multipart/form-data" class="form-group details_frm">
 					<div class="row">
 						<div class="">
+							<label style="color:red;">Note: Charges refers to Outstanding amount including EMI/PEMI/ Penal Interest and Charges plus GST as applicable.</label>
 							<div class="form-group">
 								<label for="contain">Upload Data File (.xlsx)</label> <input required type="file"
 									name="file" class="btn btn-primary mb-2" accept=".xlsx, .xls" /><br /> <br /> <input type="submit"
