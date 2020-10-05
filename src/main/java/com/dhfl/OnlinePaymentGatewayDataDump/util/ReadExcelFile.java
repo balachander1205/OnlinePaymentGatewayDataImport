@@ -18,6 +18,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dhfl.OnlinePaymentGatewayDataDump.entity.DHFLCustomersEntity;
+import com.sun.media.jfxmedia.logging.Logger;
 
 public class ReadExcelFile {
 	public static String TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
@@ -72,6 +73,8 @@ public class ReadExcelFile {
 						headersArr[headerCount] = trimAdvanced(headerValue);
 						headerCount++;
 					}
+					System.out.println("File Headers="+java.util.Arrays.toString(HEADERs));
+					System.out.println("Uploaded File Headers="+java.util.Arrays.toString(headersArr));
 					HEADERS_FLAG = Arrays.equals(HEADERs, headersArr);
 					continue;
 				}
