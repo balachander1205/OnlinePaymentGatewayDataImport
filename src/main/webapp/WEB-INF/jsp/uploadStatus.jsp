@@ -284,7 +284,7 @@ body {
 											<tr>
 												<th scope="col">Total Records</th>
 												<th scope="col">Updated Records</th>
-												<th scope="col">Insetred Rows</th>
+												<th scope="col">Inserted Rows</th>
 												<!-- <th scope="col">Mobile</th> -->
 											</tr>
 										</thead>
