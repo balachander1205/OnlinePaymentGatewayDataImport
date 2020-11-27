@@ -3,7 +3,7 @@
 <head>
 <link href="/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link href="/css/font-awesome.css" rel="stylesheet">
-<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/jquery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <title>DHFL Customer Data Upload</title>
 </head>
@@ -234,6 +234,19 @@ body {
 	margin-left: 0;
 }
 </style>
+<!-- File upload extention validation
+ -->
+<script>
+function validate(file) {
+    var ext = file.split(".");
+    ext = ext[ext.length-1].toLowerCase();      
+    var arrayExtensions = ["xls" , "xlsx"];
+    if (arrayExtensions.lastIndexOf(ext) == -1) {
+        alert("Please upload .xls / .xlsx file only.");
+        $("#dataFileBtn").val("");
+    }
+}
+</script>
 <body>
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-sm bg-light navbar-light static-top">
@@ -255,8 +268,8 @@ body {
 							<label style="color:red;">Note: Charges refers to Outstanding amount including EMI/PEMI/ Penal Interest and Charges plus GST as applicable.</label>
 							<div class="form-group">
 								<label for="contain">Upload Data File (.xlsx)</label> <input required type="file"
-									name="file" class="btn btn-primary mb-2" accept=".xlsx, .xls" /><br /> <br /> <input type="submit"
-									value="Submit" class="btn btn-primary mb-2"/>
+									name="file" class="btn btn-primary mb-2" accept=".xlsx, .xls" id="dataFileBtn" onChange="validate(this.value)"/><br /> <br /> <input type="submit"
+									value="Submit" class="btn btn-primary mb-2" />
 							</div>
 							<!-- file upload status message.. -->
 							<c:if test="${message}!=null">
